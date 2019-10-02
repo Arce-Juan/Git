@@ -1,4 +1,3 @@
 1º linea sin editar
-2º linea con edicion
+2º linea sin editar
 3º linea sin editar
-4º linea sin editar
