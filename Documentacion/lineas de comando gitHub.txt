@@ -1,0 +1,133 @@
+Esc - Shift - Z - Z : (para salir de consola de comandos)
+
+-- * ESTRUCTURA DE TRABAJO GIT * ---
+DIRECTORIO  -  STAGING - REPOSITORIO
+------------------------------------
+
+git init   : empieza en la carpeta seleccionada un repositorio (sistema de control de versiones)
+
+git add XXXX   : incorpora al repositorio el archivo XXXX
+	git add biografia.txt
+
+git commit -m   : envia los ultimos cambios del archivo al repositorio
+	git commit -m "version 1"  se incorporo los cambios con un comentario "version 1" en el repositorio
+
+ejemplo
+	git add .   : agrega los cambios al repositorio de todos los archivos en la carpeta la cual me encuentro actualmente
+	git commit - m "cambios a la version 1"
+
+git status   : ver el estado del repositorio
+
+git show    : muestra el historico de todos los cambios hechos
+	git show XXXXXXXXXXXXXXXXXXX archivo.txt     : te trae los cambios hechos en el historico "XXXXX", si no se le incluye el id del historico, te trae el ultimo
+
+git log XXXXXX    : puedes ver la historia entera de un archivo
+	git log biografia.txt
+	git log --all
+	git log --all --graph
+	git log --all --graph --decorate --online
+	git log --stats
+git push    : envia el archivo a un repositorio en la nube
+git pull    : descarga archivo de repositorio en la nube
+
+girt check out  XXXXXXXXXXXXXXXXX  archivo.txt    : trae los ultimos cambios de la master
+
+git rm --cached historia.txt  quita de la STAGIN los cambios hechos 
+
+-- * CONFIG DE USUARIO * --
+git config --global user.name "arcej"      : se config el nombre usuario
+
+git config --global user.email "arce.juan.lua@gmail.com"      : se config el mail usuario
+
+git config --list       : se muestra las config actuales que tengo para git
+
+git diff                : se muerstran los cambios hechos
+
+-- * VOLVIENDO A VERSIONES ANTERIORES * --
+git reset XXXXXXXXXXXXXXXXXXXXXXXX     : vuelve a una version anterior de un codigo de version
+	git reset XXXXXXXXXXX --hard    : vuelve todo PERO ABSOLUTAMENTE todo al estado anterior
+	git reset XXXXXXXXXXX --soft    : vuelve todo al estado anterior pero lo que tengamos en stagen queda en Staging (si se hicieron cambios y le dimos git add. eso sigue ahi disponible para el proximo commit, simplemente que en el directorio de trabajo vuelve a la version anterior) 
+
+git commit -am    : hace el "git add ." junto con el " commit -m", solo funciona con archivos que ya les hayas hecho add. anteriormente (con los archivos nuevos no funciona)
+
+-- * REPOSITORIO REMOTO - COPIAR Y ENVIAR * --
+git clone    : sirve para copiar o clonar todo un repositorio desde el servidor
+	git clone URL_XXXXXXXXXX
+
+git push     : se guardan los cambios que tengo en mi repositorio local al repositorio remoto
+
+git fetch    : trae los datos del rep remoto y solo los aplica al repositorio local
+
+git pull     : trae los datos del rep remoto y los aplica al repositorio local, la base de datos de cambios y copia el directorio
+
+
+-- * HEAD * --
+es un indicador de cual version de commits estoy viendo de los ultimos archivos.
+
+
+-- * RAMAS Y VERSIONADO * --
+git branch rama_CABECERA        : crea una rama de la master en la cual estoy ubicado
+
+git checkout rama_CABECERA      : me muevo de la master a la rama rama_CABECERA
+
+git checkout master             : me muevo de la rama_CABECERA a la master
+
+git show-branch                 : muestra cuales son las ramas que existen y cual fue su historia
+	git show-branch
+	git show-branch-all
+
+gitk                           : abre un software en donde muestra graficamente lo que paso con las ramas
+
+-- * FUSION DE RAMAS * --
+para hacer la fusion de debe invocar con checkout a la rama master.
+Luego estando ahi, se debe invovar el comando merge para copiar los cambios hechos en la rama de pruebas a la master. 
+
+ejem: tenemos 2 ramas, la master y la rama_CABECERA
+trabajamos la rama_CABECERA y necesitamos impactar esos cambios en master
+
+1) nos movemos a la master
+git checkout master
+
+Nota: para saber en donde estoy ubicado y que ramas tengo uso
+git branch          : entrega las ramas creadas. para el ejemplo mostraria las siguientes ramas:
+	cabecera
+	master     (esta tiene que estar indicada en verde para hacer el marge.)
+
+2) git merge NOMBRE-DE-RAMA            : fucionara la rama especificada con la master"
+	git merge cabecera -m "se fusiono la rama master con cabecera"
+
+-- * SERVIDORES REMOTOS * --
+
+git remote          : muestra los origen de datos apuntado para hacer fetch y push
+git remote -v       : muestra los origen de datos apuntado para hacer fetch y push con mas detalles
+
+git remote add origin URL_DEL_SERVER_REMOTO        : seleciona como origen de datos a un seridor remoto en el cual vamos a poder hacer extraxciones y envios de cambios (fetch y push)
+	git remote add https://github.com/FoxerJuan/Dev_Git.git
+
+git pull            : copia tanto las histortias como los archivos del servidor remoto origin hacia la rama master
+	git pull origin master 
+
+	Si da un error al tratar de traer los datos de orign a master se usa el siguiente codigo
+	git pull origin master --allow-unrelated-histories -m "MENSAJE_DETALLE" : me permite fusionar las historias y el codigo  
+	
+git push origin master      : se envia al servidor remoto los cambios archivos de master
+ZZ
+-- * ALIAS (ATAJOS) * --
+alias                             : 
+alias NOMBRE_DEL_ALIAS-"XXXXXXXXXXXXXXXXXX"       : crea un alias o atajo colocando un nombre y luego el comando entre "XXXXXX" que queremos referenciar como atajo
+	alias alias_HistoriaCV="git log --all --graph --decorate --oneline"
+
+-- * TAGS * --
+Sirve para crear etiquetas o alieas para tener en memoria comandos muy grandes o los cuales queremos recordar
+(son mas utiles en GitHub - gralmente en local solo sirve para crear referencias simples para saber donde quede)
+
+git tag         : muestra todos los tags
+
+git tag -a NOMBRE_TAG -m "DETALLE_DEL_TAG" NNNNNN    : se crea una etiqueta con un nombre de tag mas un detalle y una referencia al ID del tag que apunta a los commits hechos
+	git tag -a v0.1 -m "primera version de biografia" 5a257ed
+
+git show-ref --tags         : muestra que tag esta asignado a que commit
+
+git push origin --tags      : empuja o envia los tags al servidor remoto en ORIGIN
+
+git tag -d NOMBRE_TAG     : sirve para eliminar un tag localmente

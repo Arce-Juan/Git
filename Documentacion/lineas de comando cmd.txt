@@ -1,0 +1,18 @@
+pwd: indica en que posicion del disco o raiz me encuentro
+cd: change directory: cambiar directorio. sirve para decidir a donde ir
+	cd /c  : me dirijo a la carpeta C
+	cd ..  : me dirijo a la carpeta de un nivel anterior a la actual
+ls: listar los archivos que tengo en el directorio actual
+ls -al: trae todos los archivos incluso los ocultos con detalles
+clear : limpia consola de comandos (desde el teclado " ctrl + L ")
+mkdir : crea un directorio o carpeta
+touch : crea archivos
+	touch vacio.txt
+cat  : muestra el texto plano de un archivo
+	cat vacio.txt
+history  : muestra todas las lineas de comando escritas en consola
+	!274  : en este ejemplo se ejecuta el numero de historial nuevamente
+rm  : remueve el archivo seleccionado  (Ojo.. puede llegar a remover hasta carpetas o discos si no se lo usa apropiadamente)
+
+-- help  : muestra un texto de ayuda referente a un comando en si.
+	rm --help
