@@ -131,3 +131,23 @@ git show-ref --tags         : muestra que tag esta asignado a que commit
 git push origin --tags      : empuja o envia los tags al servidor remoto en ORIGIN
 
 git tag -d NOMBRE_TAG     : sirve para eliminar un tag localmente
+
+
+-- * UPSTREAM * --
+
+
+-- * REBASE * --
+Fusiona a la rama master todos los cambios hechos en un branch. La recomendacion es solo hacerla en los repositorios locales. es una muy mala practica usarlo en repositorios remotos o servidoes.
+Gralmente se usa para arreglar bug o fix, una vez que se arreglan estos, entonces se los integra todo al master
+
+git branch NOMBRE_BRANCH_XXXXX       : se crea el branch para arreglar los fix
+git checkout NOMBRE_BRANCH_XXXXX     : se pasa al branch donde se arreglaran los cambios
+
+(Luego se deben arreglar todos los cambios y hacer todos los commits correspondientes para solucionar los problemas)
+(para confirmar el traspaso de todos los cambios y commits de la rama de fix, se debe esta en esta rama y ejecutar lo siguiente)
+git rebase master
+git checkout master
+git rebase NOMBRE_BRANCH_XXXXX
+git pull origin master
+git push origin master
+git branch -d NOMBRE_BRANCH_XXXXX
