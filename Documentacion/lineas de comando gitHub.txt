@@ -151,3 +151,53 @@ git rebase NOMBRE_BRANCH_XXXXX
 git pull origin master
 git push origin master
 git branch -d NOMBRE_BRANCH_XXXXX
+
+
+- * Stash * -
+Guardar cambios en memoria y recuperarlos después
+
+si por algun motivo cambie cosas q no debia y necesito recuperarlos (siempre y cuando no haya hecho un commit), entonces hago lo siguiente.
+
+git status                    : me muestra que hay cambios hechos y listos para commitear
+git stash                     : crea un lugar temporal en donde hice los cambios aun no commiteados
+git stash list		      : me muestra cual es el lugar temporal en donde se guardo ese cambio
+git stash pop		      : quita el lugar temporal y vuelve al estado de archivo modificado
+
+-Colocar el stash en una rama-
+git status
+git stash
+git stash list
+git stash branch EJEMPLO_english-version     : agrega un branch nuevo para asignar el cambio a commitear
+
+-si rompieramos el codigo, creamos un stash y le eliminamos para dejar todo como antes-
+git stash                    : nos deriva al head anterior o al ultimo commit
+git stash list
+git stash drop
+
+
+- * Clean * -
+Sirve para eliminar archivos no deseados agregados antes de hacer el commit (por ej. estaba por hacer un commit y me di cuenta q al hacer git status, de historia.txt hice una historia(copia1).txt y quiero quitarla xq no corresponde)
+git clean --dry-run     : muestra que es lo que se va a borrar
+git clean -f            : borra todos los archivos que mostro el comando anterior
+
+(los tipos de archivos definidos en .gitignore no seran afectados
+tampoco afecta a carpetas ya que a git solo le interesan los archivos, estas se las tiene que borrar a mano)
+
+- * cherry-pick * - Traer commits viejos al head de un branch
+Sirve para traer cambios hechos en commits anteriores al que estamos actualmente en el head
+Ejemplo. si yo tuviera un branch_Prueba al cual le hice 3 commits pero necesito agregar al master el cambio que se hizo en el primer commit del branch_Prueba, entonces haria lo siguiente
+
+git checkout branch_Prueba     : paso al branch en donde deseo pasar los cambios
+git log --oneline              : reviso cual es el commit que necesito (en este ejemplo el proimero: 7fa8217 ), y copio su ID
+git checkout master            : paso a master: 
+git cherry-pick 7fa8217        : se copia a master el commit 7fa8217
+
+
+- * amend * -
+Reconstruír commits en Git con amend.  si me olvide de agregar un cambio a un commit y luego quiero incorporalo, entonces hago:
+en este caso tengo 2 cosa q hacer, agregar un texto e incorporar un boton. en el commit solo modifique el texto y me olvde de agregar el boton, como hago para no hacer otro commit e incorporar el boton en el comit anterior.
+
+git commit -am "se modifico texto y se incorporo el boton"       :(en este commit nos olvidamos de incorporar la segunda funcionalidad)
+git add .                                                        : aqui agregamos los cambios hechos pero sin commitear
+git commit --amend        					 : se agregarn los cambios al ultimo commit hecho
+
