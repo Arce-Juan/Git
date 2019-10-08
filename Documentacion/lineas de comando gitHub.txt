@@ -201,3 +201,25 @@ git commit -am "se modifico texto y se incorporo el boton"       :(en este commi
 git add .                                                        : aqui agregamos los cambios hechos pero sin commitear
 git commit --amend        					 : se agregarn los cambios al ultimo commit hecho
 
+- * Reseteando * -
+Para recuperar los datos, commits, branches eliminados, etc. o sea para volver a un estado en el que deseamos recuperar todo lo perdido se puede usar el comando git reset. Tener en cuenta que este comando no solo es una mala practica, sino tambien, es muy peligroso porque vuelve todo a un estado anterior. Solo se usa cuando realmente algo se rompio
+
+git reflog		: muestra un historico de todo lo que sucedio en el control de versiones. aqui buscamos el head y lo copiamos
+git reset --hard NUMERO_HEAD_XXXX
+
+- * Buscar archivos y commits* -
+
+git grep NOMBRE_A_BUSCAR_XXXXXX			: busca en toda la rama lo que se puso en "NOMBRE_A_BUSCAR_XXXXXX"
+git grep -n NOMBRE_A_BUSCAR_XXXXXX		: muestra la fila tambien en la que aparece lo buscado
+git grep -c NOMBRE_A_BUSCAR_XXXXXX		: cantidad de veces que aparece la palabra
+	 git grep -c "Juan Arce"		: buscar la palabra "Juan Arce"
+
+- * Crando * -
+Creando comandos particulares para git
+Suponiendo que se quiere crear un comando "git stats" el cual se encargue de disparar la siguiente sentencia "git shortlog -sn --all --no-merges"
+
+git shortlog -sn --all --no-merges              : comando que se va a guardar (verificamos que funcione y cumpla su proposito)
+git stats					: nombre del comando que vamos a generar (verificamos que no exista)
+
+git config --global alias.stats "shortlog -sn --all --no-merges"     : creamos el comando deseado
+git stats						: comprobamos que ande
